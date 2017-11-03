@@ -40,6 +40,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
+    @BindView(R.id.jianhuren)
+    public TextView jianhuren;
     @BindView(R.id.status_jilu)
     public TextView status_jilu;
     @BindView(R.id.status_ciji)
@@ -146,7 +148,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static Boolean ll_ciji_sw_status = true;
     private int wendu_flag;
     private Boolean ciji_ll_turn_flag = false;
+    private Boolean jianhuren_flag = false;
     private String mode;
+    private SmsSource smsSource;
 
 
     @Override
@@ -159,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         ButterKnife.bind(this);
         jilu_daiji.setOnClickListener(this);
+        jianhuren.setOnClickListener(this);
         jilu_haianxiancanshu.setOnClickListener(this);
         jilu_chongdian.setOnClickListener(this);
         jilu_zuidaxielv.setOnClickListener(this);
@@ -200,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
         mRxStringBuildler = new StringBuilder();
+        smsSource = new SmsSource();
     }
 
     private void showToast(final String s, final int i) {
@@ -473,6 +479,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     jili_v1.setBackgroundResource(R.drawable.lay_6);
                     jili_v2.setBackgroundResource(R.drawable.lay_6);
                     jili_v3.setBackgroundResource(R.drawable.lay_5);
+                    if (jianhuren_flag) {
+                        showToast("检测到癫痫发作,正在发送短信通知...", 0);
+                    }
                     break;
                 case "DJON":
                     if ("ciji".equals(mode)) {
@@ -524,6 +533,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         byte[] data;
         switch (view.getId()) {
+            case R.id.jianhuren:
+                if (jianhuren_flag) {
+                    jianhuren_flag = false;
+                    jianhuren.setText("监护人提醒: 关");
+                } else {
+                    jianhuren_flag = true;
+                    jianhuren.setText("监护人提醒: 开");
+                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        smsSource.sendSms("aa");
+                    }
+                }).start();
+                break;
             case R.id.ciji_ll_turn:
                 if (ciji_ll_turn_flag) {
                     data = StringByteTrans.Str2Bytes("k");
