@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public TextView jilu_daiji;
     @BindView(R.id.jilu_haianxiancanshu)
     public TextView jilu_haianxiancanshu;
+    @BindView(R.id.jilu_haianxiancanshu_tv)
+    public TextView jilu_haianxiancanshu_tv;
     @BindView(R.id.jilu_chongdian)
     public TextView jilu_chongdian;
     @BindView(R.id.jilu_zuidaxielv)
@@ -393,16 +395,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 src.contains("VOT") || src.contains("TMP") || src.contains("SLP") || src.contains("CST")) {
             String type = src.substring(0, 3);
             String new_msg = src.replace(type, "");
-            int number = 0;
-            try {
-                number = Integer.parseInt(new_msg);
-            } catch (NumberFormatException e) {
-            }
             switch (type) {
                 case "RES":
-                    zkjc_tv.setText(number + " Ω");
+                    zkjc_tv.setText(new_msg + " Ω");
                     break;
                 case "BAT":
+                    int number = 0;
+                    try {
+                        number = Integer.parseInt(new_msg);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                     List<Integer> list = new ArrayList<>();
                     list.add(R.drawable.ic_battery_0);
                     list.add(R.drawable.ic_battery_1);
@@ -430,28 +433,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case "FRQ":
                     if (ciji_ll_turn_flag)
-                        fre_tv.setText(number + " Hz");
+                        fre_tv.setText(new_msg + " Hz");
                     break;
                 case "ZKB":
                     if (ciji_ll_turn_flag)
-                        zkb_tv.setText(number + " %");
+                        zkb_tv.setText(new_msg + " %");
                     break;
                 case "VOT":
                     if (ciji_ll_turn_flag)
-                        fd_tv.setText(number + " mA");
+                        fd_tv.setText(new_msg + " mA");
                     break;
                 case "TMP":
                     if (wendu_flag == 1) {
-                        jilu_wendu.setText(number + " ℃");
+                        jilu_wendu.setText(new_msg + " ℃");
                     } else if (wendu_flag == 2) {
-                        ciji_wendu_tv.setText(number + " ℃");
+                        ciji_wendu_tv.setText(new_msg + " ℃");
                     }
                     break;
                 case "SLP":
-                    jilu_zuidaxielv.setText(number + " mV/mS");
+                    jilu_zuidaxielv.setText(new_msg + " mV/mS");
                     break;
                 case "CST":
-                    jilu_haianxiancanshu.setText(number + " mV");
+                    jilu_haianxiancanshu_tv.setText(new_msg + " mV");
                     break;
             }
         } else {
