@@ -40,7 +40,7 @@
                     android:background="@drawable/lay_11"
                     android:gravity="center"
                     android:text="监护人提醒: 关"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray"
                     android:textSize="12sp" />
 
                 <View

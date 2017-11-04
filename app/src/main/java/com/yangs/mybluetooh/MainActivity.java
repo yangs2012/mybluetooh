@@ -1,6 +1,8 @@
 package com.yangs.mybluetooh;
 
+import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -11,17 +13,25 @@ import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.BluetoothLeScanner;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +47,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
     @BindView(R.id.jianhuren)
@@ -99,9 +109,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.kz_cj)
     public TextView kz_cj;
     @BindView(R.id.kz_jl)
-    public TextView tv_turnoff;
+    public TextView kz_jl;
     @BindView(R.id.tv_turnoff)
-    public TextView jl_cj;
+    public TextView tv_turnoff;
     @BindView(R.id.et_send)
     public EditText et_send;
     @BindView(R.id.bt_send)
@@ -123,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Context context;
     private BluetoothAdapter mBluetoothAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
+    private final static int REQUEST_ENABLE_SMS = 2;
     private BluetoothManager bluetoothManager;
     private BluetoothLeScanner bluetoothLeScanner;
     private Handler mHandler;
@@ -150,7 +161,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Boolean ciji_ll_turn_flag = false;
     private Boolean jianhuren_flag = false;
     private String mode;
-    private SmsSource smsSource;
+    private AlertDialog alertDialog;
+    private String phone;
+    private String text;
+    private Boolean has_send_sms_flag = false;
 
 
     @Override
@@ -164,6 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         jilu_daiji.setOnClickListener(this);
         jianhuren.setOnClickListener(this);
+        jianhuren.setLongClickable(true);
+        jianhuren.setOnLongClickListener(this);
         jilu_haianxiancanshu.setOnClickListener(this);
         jilu_chongdian.setOnClickListener(this);
         jilu_zuidaxielv.setOnClickListener(this);
@@ -187,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fd_tv.setOnClickListener(this);
         kz_cj.setOnClickListener(this);
         tv_turnoff.setOnClickListener(this);
-        jl_cj.setOnClickListener(this);
+        kz_jl.setOnClickListener(this);
         et_send.setOnClickListener(this);
         bt_send.setOnClickListener(this);
         ciji_ll_turn.setOnClickListener(this);
@@ -204,8 +220,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_ENABLE_SMS);
+        }
         mRxStringBuildler = new StringBuilder();
-        smsSource = new SmsSource();
+        phone = APPAplication.save.getString("phone", "");
+        text = APPAplication.save.getString("text", "");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_ENABLE_BT:
+                if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_DENIED)
+                    showToast("未获得蓝牙权限!", 0);
+                break;
+            case REQUEST_ENABLE_SMS:
+                initBroadcastReceiver();
+                if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_DENIED)
+                    showToast("未授予短信发送权限,癫痫发作将无法通知!", 0);
+                break;
+        }
     }
 
     private void showToast(final String s, final int i) {
@@ -221,12 +258,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         status_jilu.setTextColor(ContextCompat.getColor(this, R.color.gray));
         status_ciji.setTextColor(ContextCompat.getColor(this, R.color.gray));
         status_off.setTextColor(ContextCompat.getColor(this, R.color.gray));
+        kz_cj.setTextColor(ContextCompat.getColor(this, R.color.black));
+        kz_jl.setTextColor(ContextCompat.getColor(this, R.color.black));
+        tv_turnoff.setTextColor(ContextCompat.getColor(this, R.color.black));
         if (CURRENT_RECORD.equals(JILU_RECORD)) {
             status_jilu.setTextColor(ContextCompat.getColor(this, R.color.green));
+            kz_jl.setTextColor(ContextCompat.getColor(this, R.color.green));
         } else if (CURRENT_RECORD.equals(CIJIQI_RECORD)) {
             status_ciji.setTextColor(ContextCompat.getColor(this, R.color.green));
+            kz_cj.setTextColor(ContextCompat.getColor(this, R.color.green));
         } else {
             status_off.setTextColor(ContextCompat.getColor(this, R.color.green));
+            tv_turnoff.setTextColor(ContextCompat.getColor(this, R.color.green));
         }
     }
 
@@ -396,6 +439,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRxStringBuildler.append(StringByteTrans.Byte2String(data));
     }
 
+    private void initBroadcastReceiver() {
+        IntentFilter sendIntentFilter = new IntentFilter();
+        sendIntentFilter.addAction("SENT_SMS_ACTION");
+        BroadcastReceiver sendBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                System.out.println("发送短信状态");
+                switch (getResultCode()) {
+                    case Activity.RESULT_OK:
+                        showToast("短信发送成功", 0);
+                        break;
+                    default:
+                        showToast("短信发送失败", 0);
+                        break;
+                }
+            }
+        };
+        registerReceiver(sendBroadcastReceiver, sendIntentFilter);
+        IntentFilter deliverIntentFilter = new IntentFilter();
+        deliverIntentFilter.addAction("DELIVERED_SMS_ACTION");
+        BroadcastReceiver deliverBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                showToast("收信人已经成功接收", 0);
+            }
+        };
+        registerReceiver(deliverBroadcastReceiver, deliverIntentFilter);
+    }
+
     private void explainData(String src) {
         if (src.contains("RES") || src.contains("BAT") || src.contains("FRQ") || src.contains("ZKB") ||
                 src.contains("VOT") || src.contains("TMP") || src.contains("SLP") || src.contains("CST")) {
@@ -469,18 +541,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     jili_v1.setBackgroundResource(R.drawable.lay_5);
                     jili_v2.setBackgroundResource(R.drawable.lay_6);
                     jili_v3.setBackgroundResource(R.drawable.lay_6);
+                    has_send_sms_flag = false;
                     break;
                 case "y":
                     jili_v1.setBackgroundResource(R.drawable.lay_6);
                     jili_v2.setBackgroundResource(R.drawable.lay_5);
                     jili_v3.setBackgroundResource(R.drawable.lay_6);
+                    has_send_sms_flag = false;
                     break;
                 case "i":
                     jili_v1.setBackgroundResource(R.drawable.lay_6);
                     jili_v2.setBackgroundResource(R.drawable.lay_6);
                     jili_v3.setBackgroundResource(R.drawable.lay_5);
                     if (jianhuren_flag) {
-                        showToast("检测到癫痫发作,正在发送短信通知...", 0);
+                        if (has_send_sms_flag) {
+                            return;
+                        }
+                        if (phone == null || phone.equals("") || text == null || text.equals("")) {
+                            APPAplication.showToast("未设置短信发送内容\n长按 监护人提醒 来设置!", 0);
+                        } else {
+                            showToast("检测到癫痫发作,正在发送短信通知...", 0);
+                            android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();
+                            List<String> divideContents = smsManager.divideMessage(text);
+                            for (String text : divideContents) {
+                                smsManager.sendTextMessage(phone, null,
+                                        text, null, null);
+                            }
+                            has_send_sms_flag = true;
+                        }
                     }
                     break;
                 case "DJON":
@@ -537,16 +625,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (jianhuren_flag) {
                     jianhuren_flag = false;
                     jianhuren.setText("监护人提醒: 关");
+                    jianhuren.setTextColor(ContextCompat.getColor(this, R.color.gray));
                 } else {
                     jianhuren_flag = true;
                     jianhuren.setText("监护人提醒: 开");
+                    jianhuren.setTextColor(ContextCompat.getColor(this, R.color.green));
                 }
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        smsSource.sendSms("aa");
-                    }
-                }).start();
                 break;
             case R.id.ciji_ll_turn:
                 if (ciji_ll_turn_flag) {
@@ -668,6 +752,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ScanLeDevice(true);
                 break;
         }
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        switch (view.getId()) {
+            case R.id.jianhuren:
+                if (alertDialog == null) {
+                    View view2 = LayoutInflater.from(MainActivity.this).inflate(R.layout.alertdialog_layout, null);
+                    final EditText et_phone = view2.findViewById(R.id.dialog_et_phone);
+                    final EditText et_text = view2.findViewById(R.id.dialog_et_text);
+                    et_phone.setText(phone);
+                    et_text.setText(text);
+                    alertDialog = new AlertDialog.Builder(MainActivity.this).setView(view2)
+                            .setTitle("设置短信").setPositiveButton("保存", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    phone = et_phone.getText().toString().trim();
+                                    text = et_text.getText().toString().trim();
+                                    APPAplication.save.edit().putString("phone", phone)
+                                            .putString("text", text).apply();
+                                    APPAplication.showToast("保存成功", 0);
+                                    dialogInterface.cancel();
+                                }
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).create();
+                }
+                alertDialog.show();
+                break;
+        }
+        return true;
     }
 
     public class ThreadRx extends Thread {
