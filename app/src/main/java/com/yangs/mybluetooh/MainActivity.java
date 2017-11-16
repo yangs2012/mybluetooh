@@ -28,6 +28,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -166,11 +167,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String text;
     private Boolean has_send_sms_flag = false;
 
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "没有权限,请手动开启定位权限", Toast.LENGTH_SHORT).show();
+            // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, 3);
+        }
         initView();
     }
 
@@ -561,13 +579,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             APPAplication.showToast("未设置短信发送内容\n长按 监护人提醒 来设置!", 0);
                         } else {
                             showToast("检测到癫痫发作,正在发送短信通知...", 0);
-                            android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();
-                            List<String> divideContents = smsManager.divideMessage(text);
-                            for (String text : divideContents) {
-                                smsManager.sendTextMessage(phone, null,
-                                        text, null, null);
-                            }
+                            APPAplication.mLocationClient.startLocation();
                             has_send_sms_flag = true;
+                            if (CURRENT_RECORD.equals(JILU_RECORD)) {
+                                byte[] data = StringByteTrans.Str2Bytes("2m");
+                                new ThreadUnpackSend(data).start();
+                            }
                         }
                     }
                     break;
