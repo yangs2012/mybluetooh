@@ -618,7 +618,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case "OK":
                     if (ciji_ll_turn_flag) {
-                        ciji_ll_turn_v.setBackgroundResource(R.drawable.lay_6);
+                        ciji_ll_turn_v.setBackgroundResource(R.drawable.lay_3);
                         ciji_ll_turn_flag = false;
                         fre_tv.setText("Hz");
                         zkb_tv.setText("%");
