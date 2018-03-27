@@ -26,9 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/lay_1"
                 android:orientation="horizontal">
 
@@ -52,11 +51,12 @@
                     android:id="@+id/status_jilu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_margin="6dp"
                     android:gravity="center"
                     android:text="Recorder"
                     android:textColor="@color/gray"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <View
                     android:layout_width="1dp"
@@ -69,11 +69,12 @@
                     android:id="@+id/status_ciji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_margin="6dp"
                     android:gravity="center"
                     android:text="Stimulator"
                     android:textColor="@color/gray"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <View
                     android:layout_width="1dp"
@@ -86,19 +87,20 @@
                     android:id="@+id/status_off"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_margin="6dp"
                     android:gravity="center"
                     android:text="Disconnection"
                     android:textColor="@color/gray"
-                    android:textSize="14sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/lay_2"
                 android:orientation="vertical">
 
@@ -168,7 +170,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="Standby Mode"
+                        android:text="Standby   Mode"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -187,7 +189,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="Coast Line Parametor"
+                        android:text="Coast Line Parameter"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -319,7 +321,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="10dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/lay_6" />
+                                android:background="@drawable/lay_5" />
 
                             <TextView
                                 android:layout_width="0dp"
@@ -349,7 +351,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="10dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/lay_6" />
+                                android:background="@drawable/lay_5" />
 
                             <TextView
                                 android:layout_width="0dp"
@@ -379,7 +381,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="10dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/lay_6" />
+                                android:background="@drawable/lay_5" />
 
                             <TextView
                                 android:layout_width="0dp"
@@ -401,8 +403,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/lay_2"
                 android:orientation="vertical">
 
@@ -450,7 +452,7 @@
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="6dp"
                         android:gravity="center"
-                        android:text="95%"
+                        android:text="90%"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -472,7 +474,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="Standby Mode"
+                        android:text="Standby   Mode"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -534,7 +536,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="Charging Mode"
+                        android:text="Charging  Mode"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -575,11 +577,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:gravity="center"
                                 android:text="Frequency"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
 
                             <TextView
                                 android:id="@+id/fre_down"
@@ -673,7 +675,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:gravity="center"
                                 android:text="Duty Cycle"
                                 android:textColor="@color/white"
@@ -772,11 +774,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:gravity="center"
                                 android:text="Amplitucle"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
 
                             <TextView
                                 android:id="@+id/fd_down"
@@ -811,8 +813,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/lay_2"
                 android:orientation="vertical">
 
@@ -850,7 +852,7 @@
                     <TextView
                         android:id="@+id/kz_cj"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1.5"
@@ -858,12 +860,12 @@
                         android:gravity="center"
                         android:text="APP-Stimulator"
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/kz_jl"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1.5"
@@ -871,19 +873,19 @@
                         android:gravity="center"
                         android:text="APP-Recorder"
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_turnoff"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
                         android:text="Disconnection"
                         android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <LinearLayout

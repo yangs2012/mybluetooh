@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         context = MainActivity.this;
         setHandler();
         ButterKnife.bind(this);
-        toolbar.setTitle("无线闭环植入式迷走神经刺激器");
+        toolbar.setTitle("WCIWHVNS");
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             showToast("设备不支持蓝牙BLE,功能将无法使用!", 1);
         }
