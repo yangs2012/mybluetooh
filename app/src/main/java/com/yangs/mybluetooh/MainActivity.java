@@ -641,11 +641,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.jianhuren:
                 if (jianhuren_flag) {
                     jianhuren_flag = false;
-                    jianhuren.setText("监护人提醒: 关");
+                    jianhuren.setText("Guardian Alert : OFF");
                     jianhuren.setTextColor(ContextCompat.getColor(this, R.color.gray));
                 } else {
                     jianhuren_flag = true;
-                    jianhuren.setText("监护人提醒: 开");
+                    jianhuren.setText("Guardian Alert : ON");
                     jianhuren.setTextColor(ContextCompat.getColor(this, R.color.green));
                 }
                 break;

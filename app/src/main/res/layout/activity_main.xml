@@ -39,7 +39,7 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/lay_11"
                     android:gravity="center"
-                    android:text="监护人提醒: 关"
+                    android:text="Guardian Alert : ON"
                     android:textColor="@color/gray"
                     android:textSize="12sp" />
 
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:gravity="center"
-                    android:text="记录器"
+                    android:text="Recorder"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
 
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:gravity="center"
-                    android:text="刺激器"
+                    android:text="Stimulator"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
 
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
                     android:gravity="center"
-                    android:text="断开"
+                    android:text="Disconnection"
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -115,7 +115,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="6dp"
                         android:gravity="center"
-                        android:text="记录器"
+                        android:text="Recorder"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -168,7 +168,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="待机模式"
+                        android:text="Standby Mode"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -187,7 +187,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="海岸线参数"
+                        android:text="Coast Line Parametor"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -221,7 +221,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="充电模式"
+                        android:text="Recording Mode"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -241,7 +241,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        android:text="最 大 斜 率"
+                        android:text="Maximum Slope"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -276,7 +276,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="温度采集"
+                        android:text="Tempreture"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -323,13 +323,13 @@
 
                             <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:text="正常"
+                                android:text="Normal"
                                 android:textColor="@color/white"
-                                android:textSize="16sp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -353,13 +353,13 @@
 
                             <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:text="癫痫预发作"
+                                android:text="Epileptic Pre-seizure"
                                 android:textColor="@color/white"
-                                android:textSize="16sp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -383,13 +383,13 @@
 
                             <TextView
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:text="癫痫发作"
+                                android:text="Epileptic Seizure"
                                 android:textColor="@color/white"
-                                android:textSize="16sp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -419,7 +419,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="6dp"
                         android:gravity="center"
-                        android:text="刺激器"
+                        android:text="Stimulator"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -472,7 +472,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="待机模式"
+                        android:text="Standby Mode"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -510,7 +510,7 @@
                             android:layout_marginBottom="6dp"
                             android:layout_marginTop="6dp"
                             android:gravity="center"
-                            android:text="刺激脉冲"
+                            android:text="Stimuli"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -534,7 +534,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="充电模式"
+                        android:text="Charging Mode"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -577,7 +577,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="频 率"
+                                android:text="Frequency"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
 
@@ -626,7 +626,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="温度采集"
+                        android:text="Tempreture"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -675,7 +675,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="占空比"
+                                android:text="Duty Cycle"
                                 android:textColor="@color/white"
                                 android:textSize="10sp" />
 
@@ -725,7 +725,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="阻抗检测"
+                        android:text="Bio-impedance"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -774,7 +774,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="幅 度"
+                                android:text="Amplitucle"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
 
@@ -829,7 +829,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="6dp"
                         android:gravity="center"
-                        android:text="蓝  牙"
+                        android:text="Bluetooh"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -856,7 +856,7 @@
                         android:layout_weight="1.5"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="控制器-刺激器"
+                        android:text="APP-Stimulator"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -869,7 +869,7 @@
                         android:layout_weight="1.5"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="控制器-记录器"
+                        android:text="APP-Recorder"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -881,7 +881,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_9"
                         android:gravity="center"
-                        android:text="断开"
+                        android:text="Disconnection"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -902,7 +902,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_7"
                         android:gravity="left|center_vertical"
-                        android:hint="发送区"
+                        android:hint="Sending Area"
                         android:textSize="12sp" />
 
                     <Button
@@ -913,7 +913,7 @@
                         android:layout_marginLeft="15dp"
                         android:background="@drawable/lay_8"
                         android:gravity="center"
-                        android:text="发送" />
+                        android:text="Send" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
