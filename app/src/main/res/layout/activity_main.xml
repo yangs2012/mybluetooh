@@ -359,7 +359,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:text="Epileptic Pre-seizure"
+                                android:text="Epileptic         Pre-seizure"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -389,7 +389,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:text="Epileptic Seizure"
+                                android:text="Epileptic          Seizure"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -604,7 +604,7 @@
                             android:layout_weight="0.7"
                             android:background="@drawable/lay_4"
                             android:gravity="right"
-                            android:text="    Hz"
+                            android:text="120 Hz"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -702,7 +702,7 @@
                             android:layout_weight="0.7"
                             android:background="@drawable/lay_4"
                             android:gravity="right"
-                            android:text="    %"
+                            android:text="10 %"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -776,7 +776,7 @@
                                 android:layout_gravity="center"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="Amplitucle"
+                                android:text="Amplitude"
                                 android:textColor="@color/white"
                                 android:textSize="10sp" />
 
@@ -801,7 +801,7 @@
                             android:layout_weight="0.7"
                             android:background="@drawable/lay_4"
                             android:gravity="right"
-                            android:text="    mA"
+                            android:text="0.3 mA"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
                     </LinearLayout>
