@@ -739,7 +739,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/lay_4"
                         android:gravity="right"
-                        android:text="    Ω"
+                        android:text="1000 Ω"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
